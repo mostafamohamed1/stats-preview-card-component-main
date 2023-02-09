@@ -1,0 +1,145 @@
+// Media Query
+
+@mixin breakpoint($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+// Fonts
+$font-Inter: "Inter", sans-serif;
+$font-lexend: "Lexend Deca", sans-serif;
+
+// Colors
+// --- Primary ---
+$very-dark-blue: hsl(233, 47%, 7%);
+$dark-desaturated-blue: hsl(244, 38%, 16%);
+$soft-violet: hsl(277, 64%, 61%);
+// --- Nature ---
+$white: hsl(0, 0%, 100%);
+$slightly-transparent-white: hsla(0, 0%, 100%, 0.75);
+$slightly-transparent-white: hsla(0, 0%, 100%, 0.6);
+
+// Custom Styles
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-Inter;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.6;
+  background-color: $very-dark-blue;
+  color: $white;
+}
+
+.container {
+  padding-inline: 1.5rem;
+  margin-inline: auto;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background-color: $dark-desaturated-blue;
+
+  border-radius: 1rem;
+  overflow: hidden;
+
+  @include breakpoint(375px) {
+    display: grid;
+    grid-template-columns: repeat(2, 54rem);
+  }
+  max-width: 100%;
+
+  &_img {
+    @include breakpoint(375px) {
+      order: 1;
+    }
+
+    position: relative;
+    & img {
+      max-width: 100%;
+      display: block;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 0;
+      background-color: darken(
+        $color: rgba($color: $soft-violet, $alpha: 0.7),
+        $amount: 40%
+      );
+    }
+  }
+
+  &_content {
+    padding: 2rem;
+    text-align: center;
+
+    @include breakpoint(375px) {
+      padding: 5rem 8rem;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    & h1 {
+      margin-bottom: 2rem;
+      @include breakpoint(375px) {
+        font-size: 3.5rem;
+      }
+      font-weight: 700;
+      line-height: initial;
+
+      & span {
+        color: $soft-violet;
+      }
+    }
+
+    & p {
+      color: $slightly-transparent-white;
+      margin-bottom: 4rem;
+    }
+  }
+
+  &_stats {
+    flex-basis: 100%;
+    align-self: flex-end;
+
+    @include breakpoint(375px) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    & .col:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    & h2 {
+      text-transform: uppercase;
+      font-family: $font-lexend;
+    }
+
+    & span {
+      font-family: $font-Inter;
+      font-size: 1.3rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: $slightly-transparent-white;
+    }
+  }
+}
